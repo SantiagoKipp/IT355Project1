@@ -1,0 +1,1 @@
+Efficient handling of file-related errors.
