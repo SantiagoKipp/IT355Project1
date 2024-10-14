@@ -1,0 +1,54 @@
+/**
+ * Rule: OBJ57-J. Do not rely on methods that can be overridden by untrusted code
+ *
+ * This class demonstrates a secure approach by using final classes and methods
+ * to prevent method overriding, ensuring no tampering with the behavior of the system
+ */
+public final class LicenseType {
+
+    private final String type;
+
+    /**
+     * Constructor to initialize the LicenseType object with a specific type
+     *
+     * @param type the type of license
+     */
+    public LicenseType(String type) {
+        this.type = type;
+    }
+
+    /**
+     * Returns the type of license
+     *
+     * @return the type of license
+     */
+    public String getType() {
+        return type;
+    }
+
+    /**
+     * Overrides the hashCode method for consistent hashing and to prevent any alterations by untrusted code.
+     *
+     * @return the computed hash code
+     */
+    @Override
+    public int hashCode() {
+        int res = 17;
+        res = res * 31 + (type == null ? 0 : type.hashCode());
+        return res;
+    }
+
+    /**
+     * Overrides the equals method to ensure equality comparison between two LicenseType objects
+     *
+     * @param obj the object to compare
+     * @return true if the objects are equal, false otherwise
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        LicenseType other = (LicenseType) obj;
+        return type != null && type.equals(other.type);
+    }
+}
