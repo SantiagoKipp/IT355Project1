@@ -1,21 +1,28 @@
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-/**
- * TPS00-J. Use thread pools to enable graceful degradation of service during traffic bursts
- *
- * This rule promotes the use of thread pools to prevent resource exhaustion.
- * It allows the system to handle traffic bursts efficiently by limiting the
- * number of concurrent threads, avoiding DoS attacks.
- */
-private final ExecutorService executor = Executors.newFixedThreadPool(10);
+public class ThreadPoolExample {
+    /**
+     * TPS00-J. Use thread pools to enable graceful degradation of service during traffic bursts
+     *
+     * This rule promotes the use of thread pools to prevent resource exhaustion.
+     * It allows the system to handle traffic bursts efficiently by limiting the
+     * number of concurrent threads, avoiding DoS attacks.
+     */
+    private final ExecutorService executor = Executors.newFixedThreadPool(10);
 
-/**
- * Method that handles tasks using a fixed thread pool to ensure system stability.
- */
-public void handleRequest() {
-    // submitting tasks into the thread pool for safe processing
-    executor.submit(() -> {
-        System.out.println("Handling request using thread pool.");
-    });
+    /**
+     * Method that handles tasks using a fixed thread pool to ensure system stability.
+     */
+    public void handleRequest() {
+        // submitting tasks into the thread pool for safe processing
+        executor.submit(() -> {
+            System.out.println("Handling request using thread pool.");
+        });
+    }
+
+    public static void main(String[] args) {
+        ThreadPoolExample example = new ThreadPoolExample();
+        example.handleRequest();
+    }
 }
