@@ -1,0 +1,19 @@
+import java.nio.CharBuffer;
+
+/**
+ * FIO05-J. Do not expose buffers or their backing arrays
+ *
+ * This rule ensures that buffers are not exposed to untrusted code. Exposing
+ * buffers can lead to malicious modification of the underlying data.
+ */
+private final char[] dataArray = new char[10];
+
+/**
+ * Returns a read-only copy of a buffer to prevent unauthorized modification.
+ *
+ * @return a read-only view of the data buffer
+ */
+public CharBuffer getBufferCopy() {
+    // returning a read-only wrap of the data array to prevent modifications
+    return CharBuffer.wrap(dataArray).asReadOnlyBuffer();
+}
