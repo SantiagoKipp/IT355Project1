@@ -1,6 +1,5 @@
 /**
- * The num09 class demonstrates the use of a loop to populate an integer array
- * with a sequence of numbers using a specific pattern.
+*AN ARRAy class
  */
 public class num09 {
 
