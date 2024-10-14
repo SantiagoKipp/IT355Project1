@@ -1,0 +1,24 @@
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+
+/**
+ * This class demonstrates the proper encoding of URLs to prevent the inclusion of unsafe characters.
+ * Encoding ensures that only valid characters are passed into URLs.
+ */
+public class UrlBuilder {
+
+    // Recommendation: IDS51-J. Properly encode or escape output to prevent malicious data injection.
+    // Encodes input to be safely used in URLs.
+
+    /**
+     * Builds a safe, encoded URL by encoding user-provided query parameters.
+     *
+     * @param query The query string to include in the URL
+     * @return A fully encoded URL.
+     */
+    public String buildEncodedUrl(String query) {
+        // Encoding the query to prevent inclusion of unsafe characters
+        String encodedQuery = URLEncoder.encode(query, StandardCharsets.UTF_8);
+        return "https://example.com?query=" + encodedQuery;
+    }
+}
