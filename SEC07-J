@@ -1,0 +1,23 @@
+import java.security.CodeSource;
+import java.security.PermissionCollection;
+import java.security.Permissions;
+import java.security.RuntimePermission;
+
+/**
+ * SEC07-J. Call the superclass's getPermissions() method when writing a custom class loader
+ *
+ * This rule ensures that the custom class loader uses system-wide security policies
+ * by calling the superclass’s getPermissions() method. This prevents elevating
+ * permissions for untrusted classes.
+ *
+ * @param cs the CodeSource that requires permissions
+ * @return a PermissionCollection with the necessary permissions
+ */
+@Override
+protected PermissionCollection getPermissions(CodeSource cs) {
+    // calling super to ensure system-wide security policy is honored
+    PermissionCollection pc = super.getPermissions(cs);
+    // adding extra security permissions for application-specific requirements
+    pc.add(new RuntimePermission("exitVM"));
+    return pc;
+}
