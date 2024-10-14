@@ -1,0 +1,15 @@
+public class SecureJavaExample {
+
+    /**
+     * ENV05-J. Do not deploy an application that can be remotely monitored
+     *
+     * This rule prevents exposure of applications to malicious attackers by
+     * ensuring remote monitoring is disabled in production environments.
+     *
+     * Running this method simulates a safe application launch.
+     */
+    public static void main(String[] args) {
+        // running the application without remote monitoring
+        System.out.println("Running in production mode with remote monitoring disabled.");
+    }
+}
