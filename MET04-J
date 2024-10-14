@@ -1,0 +1,46 @@
+import java.lang.*; // importing necessary Java package
+
+public class AccessControlExample {
+
+    /**
+     * MET04-J. Do not increase the accessibility of overridden or hidden methods
+     *
+     * This rule ensures that when methods are overridden, the accessibility level
+     * is not increased Doing so could expose sensitive methods to unauthorized users
+     * potentially leading to security vulnerabilities
+     */
+    class SuperClass {
+        /**
+         * A method that has protected access in the superclass
+         * This method contains sensitive operations
+         */
+        protected void sensitiveOperation() {
+            System.out.println("Sensitive operation in SuperClass")
+        }
+    }
+
+    /**
+     * SubClass that overrides a method while retaining the original access level
+     */
+    class SubClass extends SuperClass {
+        /**
+         * This method overrides the superclass method without increasing its
+         * accessibility adhering to the MET04-J rule
+         */
+        @Override
+        protected void sensitiveOperation() {
+            // preserving the original access level of 'protected'
+            System.out.println("Sensitive operation in SubClass")
+        }
+    }
+
+    // main method to run the program
+    public static void main(String[] args) {
+        AccessControlExample example = new AccessControlExample()
+        SuperClass superClass = example.new SuperClass()
+        SubClass subClass = example.new SubClass()
+
+        superClass.sensitiveOperation() // calling the method from SuperClass
+        subClass.sensitiveOperation()   // calling the method from SubClass
+    }
+}
