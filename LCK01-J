@@ -1,0 +1,17 @@
+public class SynchronizationExample {
+    /**
+     * LCK01-J. Do not synchronize on objects that may be reused
+     *
+     * Synchronization on reusable objects can lead to deadlocks or other
+     * non-deterministic behavior. This rule ensures that only safe, non-reusable
+     * objects are synchronized on.
+     */
+    private final Object lock = new Object();
+
+    public static void main(String[] args) {
+        SynchronizationExample example = new SynchronizationExample();
+        synchronized (example.lock) {
+            System.out.println("Synchronization on a non-reusable object.");
+        }
+    }
+}
