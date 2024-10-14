@@ -1,0 +1,2 @@
+// The `-Xverify:all` option ensures that the Java bytecode verifier is fully enabled.
+ENV04-J: Do not disable bytecode verification
