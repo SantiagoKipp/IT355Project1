@@ -1,0 +1,17 @@
+public class ProductionSafetyExample {
+    /**
+     * ENV06-J. Production code must not contain debugging entry points
+     *
+     * Debugging entry points like main() methods should not be present in production code
+     * to avoid unauthorized access through hidden or unintended entry points.
+     */
+    private static final boolean debug = false; // debugging is disabled for production safety
+
+    public static void main(String[] args) {
+        if (debug) {
+            System.out.println("Debugging mode is ON.");
+        } else {
+            System.out.println("Debugging is disabled for production safety.");
+        }
+    }
+}
