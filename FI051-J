@@ -1,0 +1,56 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.nio.file.attribute.FileTime;
+
+/**
+ * Rule: FIO51-J. Identify files using multiple file attributes
+ * Ensures the same file is used across operations by comparing attributes
+ * like creation time, last modified time, and unique file key to prevent TOCTOU (time-of-check to time-of-use)
+ */
+public class FileProcessor {
+
+    /**
+     * Verifies file integrity by comparing multiple attributes to detect tampering
+     *
+     * @param filename the file to process
+     * @throws IOException if file operations fail
+     */
+    public void processFile(String filename) throws IOException {
+        Path filePath = Paths.get(filename);
+        BasicFileAttributes attr1 = Files.readAttributes(filePath, BasicFileAttributes.class);
+        FileTime creation1 = attr1.creationTime();
+        FileTime modified1 = attr1.lastModifiedTime();
+        Object key1 = attr1.fileKey();
+
+        // Write to the file
+        try (BufferedWriter writer = Files.newBufferedWriter(filePath)) {
+            writer.write("Sample content for security check.");
+        }
+
+        // Reopen and verify file attributes
+        BasicFileAttributes attr2 = Files.readAttributes(filePath, BasicFileAttributes.class);
+        if (!creation1.equals(attr2.creationTime()) || !modified1.equals(attr2.lastModifiedTime()) || !key1.equals(attr2.fileKey())) {
+            System.err.println("File tampered with!");
+            return;
+        }
+
+        // Read from the file if attributes match
+        try (BufferedReader reader = Files.newBufferedReader(filePath)) {
+            reader.lines().forEach(System.out::println);
+        }
+    }
+
+    public static void main(String[] args) {
+        FileProcessor processor = new FileProcessor();
+        try {
+            processor.processFile("example.txt");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
