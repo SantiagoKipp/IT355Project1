@@ -1,0 +1,58 @@
+/**
+ * Rule: OBJ52-J. Write garbage-collection-friendly code
+ *
+ * This class demonstrates the use of short-lived immutable objects to reduce memory retention
+ * Immutable objects are easier for the garbage collector to manage since they cannot be changed once created
+ */
+public class OrderProcessor {
+
+    /**
+     * Processes orders by creating short-lived immutable Order objects
+     * The Order object is immutable and is quickly collected by the garbage collector after use.
+     *
+     * @param orderId      the ID of the order
+     * @param customerName the name of the customer associated with the order
+     */
+    public void processOrder(String orderId, String customerName) {
+        Order order = new Order(orderId, customerName);
+        // Process the order (processing logic omitted for brevity)
+    }
+
+    /**
+     * Immutable Order class that represents an order with an ID and a customer name
+     * This class ensures immutability by having final fields and no setter methods
+     */
+    public static final class Order {
+        private final String orderId;
+        private final String customerName;
+
+        /**
+         * Constructs an immutable Order object with a specified order ID and customer name
+         *
+         * @param orderId      the ID of the order
+         * @param customerName the name of the customer
+         */
+        public Order(String orderId, String customerName) {
+            this.orderId = orderId;
+            this.customerName = customerName;
+        }
+
+        /**
+         * Returns the order ID.
+         *
+         * @return the order ID
+         */
+        public String getOrderId() {
+            return orderId;
+        }
+
+        /**
+         * Returns the customer name associated with the order.
+         *
+         * @return the customer name
+         */
+        public String getCustomerName() {
+            return customerName;
+        }
+    }
+}
